@@ -66,23 +66,39 @@ export const StockList: FC<StockListProps> = ({
                   {stock.symbol}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                  ${stock.quote.c.toFixed(2)}
+                  ${stock.quote?.c?.toFixed(2) ?? 'N/A'}
                 </td>
                 <td
                   className={`px-6 py-4 whitespace-nowrap text-sm ${
-                    stock.quote.d >= 0 ? 'text-green-600' : 'text-red-600'
+                    (stock.quote?.d ?? 0) >= 0
+                      ? 'text-green-600'
+                      : 'text-red-600'
                   }`}
                 >
-                  {stock.quote.d >= 0 ? '+' : ''}
-                  {stock.quote.d.toFixed(2)}
+                  {stock.quote?.d != null ? (
+                    <>
+                      {stock.quote.d >= 0 ? '+' : ''}
+                      {stock.quote.d.toFixed(2)}
+                    </>
+                  ) : (
+                    'N/A'
+                  )}
                 </td>
                 <td
                   className={`px-6 py-4 whitespace-nowrap text-sm ${
-                    stock.quote.dp >= 0 ? 'text-green-600' : 'text-red-600'
+                    (stock.quote?.dp ?? 0) >= 0
+                      ? 'text-green-600'
+                      : 'text-red-600'
                   }`}
                 >
-                  {stock.quote.dp >= 0 ? '+' : ''}
-                  {stock.quote.dp.toFixed(2)}%
+                  {stock.quote?.dp != null ? (
+                    <>
+                      {stock.quote.dp >= 0 ? '+' : ''}
+                      {stock.quote.dp.toFixed(2)}%
+                    </>
+                  ) : (
+                    'N/A'
+                  )}
                 </td>
               </tr>
             ))}
