@@ -1,6 +1,10 @@
 import { useQuery } from 'react-query';
 import { stockService } from '@/services/stockService';
-import { STOCK_SYMBOLS, ITEMS_PER_PAGE } from '@/services/config';
+import {
+  STOCK_SYMBOLS,
+  ITEMS_PER_PAGE,
+  UPDATE_INTERVAL,
+} from '@/services/config';
 import { Stock, StockFilter } from '@/types/stock';
 import { useState, useMemo } from 'react';
 
@@ -24,7 +28,7 @@ export const useStocks = () => {
     ['stocks', currentPageSymbols.join()],
     () => stockService.getQuotesForPage(currentPageSymbols),
     {
-      refetchInterval: 5000,
+      refetchInterval: UPDATE_INTERVAL,
       keepPreviousData: true,
       retry: 2,
     }

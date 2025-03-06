@@ -1,4 +1,4 @@
-export const FINNHUB_API_KEY = 'cv4mb51r01qn2gab090gcv4mb51r01qn2gab0910';
+export const FINNHUB_API_KEY = process.env.NEXT_PUBLIC_FINNHUB_API_KEY || '';
 export const FINNHUB_BASE_URL = 'https://finnhub.io/api/v1';
 export const ITEMS_PER_PAGE = 10;
 
@@ -45,4 +45,4 @@ export const STOCK_SYMBOLS = [
   'KLAC',
 ];
 
-export const UPDATE_INTERVAL = 20000; // 20 seconds
+export const UPDATE_INTERVAL = 30000; // 30 seconds

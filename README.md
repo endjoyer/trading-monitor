@@ -1,34 +1,105 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Trading Monitor
 
-## Getting Started
+Биржевой монитор - веб-приложение для отслеживания котировок акций в реальном времени с возможностью технического анализа.
 
-First, run the development server:
+## 🚀 Функциональности
+
+- 📊 Отображение актуальных котировок акций
+- 🔄 Автоматическое обновление данных каждые 5 секунд
+- 🔍 Поиск по символам акций
+- 📈 Фильтрация по растущим/падающим акциям
+- 📉 Интерактивный график котировок
+- 📊 Технические индикаторы (RSI, MACD)
+- 🌓 Поддержка темной темы
+- 📱 Адаптивный дизайн
+
+## 🛠 Технологический стек
+
+- [Next.js 13](https://nextjs.org/) - React фреймворк
+- [TypeScript](https://www.typescriptlang.org/) - Типизация
+- [TailwindCSS](https://tailwindcss.com/) - Стилизация
+- [React Query](https://react-query.tanstack.com/) - Управление состоянием и кэширование
+- [Lightweight Charts](https://www.tradingview.com/lightweight-charts/) - Графики
+- [Finnhub API](https://finnhub.io/) - Данные о котировках
+- [Axios](https://axios-http.com/) - HTTP клиент
+
+## 📦 Установка и запуск
+
+1. Клонируйте репозиторий:
+
+```bash
+git clone https://github.com/your-username/trading-monitor.git cd trading-monitor
+```
+
+2. Установите зависимости:
+
+```bash
+npm install
+```
+
+3. Создайте файл `.env.local` и добавьте API ключ Finnhub:
+
+```env
+NEXT_PUBLIC_FINNHUB_API_KEY=your_api_key_here
+```
+
+4. Запустите проект в режиме разработки:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Откройте [http://localhost:3000](http://localhost:3000) в браузере.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📝 Использование
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1. **Поиск акций**
 
-## Learn More
+   - Используйте поисковую строку для фильтрации акций по символу
+   - Поиск осуществляется в реальном времени
 
-To learn more about Next.js, take a look at the following resources:
+2. **Фильтрация**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   - "Все" - показать все акции
+   - "Растущие" - показать только растущие акции
+   - "Падающие" - показать только падающие акции
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+3. **График**
 
-## Deploy on Vercel
+   - Выберите акцию из списка для отображения графика
+   - График показывает данные за последние 30 дней
+   - Доступны индикаторы RSI и MACD
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. **Темная тема**
+   - Переключатель темы находится в правом верхнем углу
+   - Поддерживается системная тема
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## 🔧 Конфигурация
+
+Основные настройки находятся в `src/services/config.ts`:
+
+- `UPDATE_INTERVAL` - интервал обновления данных
+- `ITEMS_PER_PAGE` - количество акций на странице
+- `STOCK_SYMBOLS` - список отслеживаемых акций
+
+## 📈 Особенности реализации
+
+- Оптимизированные запросы к API с кэшированием
+- Пагинация для эффективной работы с большими списками
+- Отказоустойчивость при проблемах с API
+- Адаптивный дизайн для мобильных устройств
+- Оптимизация производительности
+
+## 🤝 Вклад в проект
+
+Любые предложения по улучшению проекта приветствуются! Для внесения изменений:
+
+1. Форкните репозиторий
+2. Создайте ветку для новой функциональности
+3. Внесите изменения
+4. Отправьте pull request
+
+## 🙏 Благодарности
+
+- [Finnhub](https://finnhub.io/) за предоставление API
+- [TradingView](https://www.tradingview.com/) за библиотеку Lightweight Charts
