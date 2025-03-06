@@ -1,5 +1,6 @@
 export const FINNHUB_API_KEY = 'cv4mb51r01qn2gab090gcv4mb51r01qn2gab0910';
 export const FINNHUB_BASE_URL = 'https://finnhub.io/api/v1';
+export const ITEMS_PER_PAGE = 10;
 
 export const STOCK_SYMBOLS = [
   'AAPL',
@@ -12,6 +13,36 @@ export const STOCK_SYMBOLS = [
   'NFLX',
   'PYPL',
   'ADBE',
+  'AMD',
+  'INTC',
+  'CSCO',
+  'CMCSA',
+  'PEP',
+  'AVGO',
+  'TXN',
+  'QCOM',
+  'COST',
+  'TMUS',
+  'AMGN',
+  'SBUX',
+  'GILD',
+  'MDLZ',
+  'ADI',
+  'BKNG',
+  'ADP',
+  'ISRG',
+  'VRTX',
+  'REGN',
+  'FISV',
+  'ATVI',
+  'CSX',
+  'ILMN',
+  'MU',
+  'MELI',
+  'ADSK',
+  'NXPI',
+  'LRCX',
+  'KLAC',
 ];
 
 export const UPDATE_INTERVAL = 20000; // 20 seconds
