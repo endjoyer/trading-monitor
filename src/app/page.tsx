@@ -48,7 +48,6 @@ function StocksContent() {
   const { candleData, isLoading: isChartLoading } =
     useStockChart(selectedSymbol);
 
-  // Сброс страницы при изменении поиска или фильтра
   const handleSearchChange = (value: string) => {
     setSearch(value);
     setCurrentPage(1);
