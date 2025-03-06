@@ -4,9 +4,16 @@ import { Stock } from '@/types/stock';
 interface StockListProps {
   stocks: Stock[];
   isLoading: boolean;
+  onSelectStock?: (symbol: string) => void;
+  selectedSymbol?: string;
 }
 
-export const StockList: FC<StockListProps> = ({ stocks, isLoading }) => {
+export const StockList: FC<StockListProps> = ({
+  stocks,
+  isLoading,
+  onSelectStock,
+  selectedSymbol,
+}) => {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-64">
@@ -36,7 +43,15 @@ export const StockList: FC<StockListProps> = ({ stocks, isLoading }) => {
         </thead>
         <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
           {stocks.map((stock) => (
-            <tr key={stock.symbol}>
+            <tr
+              key={stock.symbol}
+              onClick={() => onSelectStock?.(stock.symbol)}
+              className={`cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors ${
+                selectedSymbol === stock.symbol
+                  ? 'bg-blue-50 dark:bg-blue-900/30'
+                  : ''
+              }`}
+            >
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
                 {stock.symbol}
               </td>

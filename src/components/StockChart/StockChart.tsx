@@ -98,7 +98,9 @@ export const StockChart: FC<StockChartProps> = ({ data, symbol }) => {
 
   return (
     <div className="p-4 bg-gray-800 rounded-lg">
-      <h2 className="text-xl font-bold mb-4 text-white">{symbol} Chart</h2>
+      <h2 className="text-xl font-bold mb-4 text-white">
+        {symbol} Chart (Без премиум аккаунта отображаются мок данные)
+      </h2>
       <div ref={chartContainerRef} className="w-full" />
     </div>
   );

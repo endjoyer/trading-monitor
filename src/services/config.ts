@@ -14,4 +14,4 @@ export const STOCK_SYMBOLS = [
   'ADBE',
 ];
 
-export const UPDATE_INTERVAL = 15000; // 15 seconds
+export const UPDATE_INTERVAL = 20000; // 20 seconds
