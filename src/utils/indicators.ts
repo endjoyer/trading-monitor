@@ -11,7 +11,7 @@ export const calculateRSI = (
   period: number = 14
 ): number[] => {
   if (prices.length < period + 1) {
-    return [];
+    return Array(prices.length).fill(50);
   }
 
   const deltas = prices.slice(1).map((price, i) => price - prices[i]);
@@ -21,13 +21,12 @@ export const calculateRSI = (
   let avgGain = gains.slice(0, period).reduce((a, b) => a + b, 0) / period;
   let avgLoss = losses.slice(0, period).reduce((a, b) => a + b, 0) / period;
 
-  // Избегаем деления на ноль
-  const rsi = [avgLoss === 0 ? 100 : 100 - 100 / (1 + avgGain / avgLoss)];
+  const rsi = [100 - 100 / (1 + (avgGain || 0.00001) / (avgLoss || 0.00001))];
 
   for (let i = period; i < prices.length - 1; i++) {
     avgGain = (avgGain * (period - 1) + gains[i]) / period;
     avgLoss = (avgLoss * (period - 1) + losses[i]) / period;
-    rsi.push(avgLoss === 0 ? 100 : 100 - 100 / (1 + avgGain / avgLoss));
+    rsi.push(100 - 100 / (1 + (avgGain || 0.00001) / (avgLoss || 0.00001)));
   }
 
   return rsi;
@@ -41,10 +40,11 @@ export const calculateMACD = (
   histogram: number[];
 } => {
   if (prices.length < 26) {
+    const mockData = Array(prices.length).fill(0);
     return {
-      macdLine: [],
-      signalLine: [],
-      histogram: [],
+      macdLine: mockData,
+      signalLine: mockData,
+      histogram: mockData,
     };
   }
 
@@ -58,15 +58,13 @@ export const calculateMACD = (
 };
 
 function calculateEMA(prices: number[], period: number): number[] {
-  if (prices.length < period) {
-    return [];
-  }
+  if (prices.length === 0) return [];
 
   const k = 2 / (period + 1);
-  const ema = [prices.slice(0, period).reduce((a, b) => a + b, 0) / period];
+  const ema = [prices[0]];
 
-  for (let i = period; i < prices.length; i++) {
-    ema.push(prices[i] * k + ema[ema.length - 1] * (1 - k));
+  for (let i = 1; i < prices.length; i++) {
+    ema.push(prices[i] * k + ema[i - 1] * (1 - k));
   }
 
   return ema;

@@ -13,7 +13,7 @@ export const StockChart: FC<StockChartProps> = ({ data, symbol }) => {
   const chartRef = useRef<any>(null);
 
   useEffect(() => {
-    if (!chartContainerRef.current) return;
+    if (!chartContainerRef.current || !data.length) return;
 
     const chartOptions = {
       layout: {
@@ -84,6 +84,17 @@ export const StockChart: FC<StockChartProps> = ({ data, symbol }) => {
       chartRef.current.remove();
     };
   }, [data]);
+
+  if (!data.length) {
+    return (
+      <div className="p-4 bg-gray-800 rounded-lg">
+        <h2 className="text-xl font-bold mb-4 text-white">{symbol} Chart</h2>
+        <div className="flex justify-center items-center h-96 text-gray-400">
+          No data available
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="p-4 bg-gray-800 rounded-lg">
