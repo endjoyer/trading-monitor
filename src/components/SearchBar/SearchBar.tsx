@@ -21,7 +21,7 @@ export const SearchBar: FC<SearchBarProps> = ({
         value={search}
         onChange={(e) => onSearchChange(e.target.value)}
         placeholder="Поиск по символу..."
-        className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+        className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
       />
       <div className="flex gap-2">
         <button
@@ -29,7 +29,7 @@ export const SearchBar: FC<SearchBarProps> = ({
           className={`px-4 py-2 rounded-lg ${
             filter === 'all'
               ? 'bg-blue-500 text-white'
-              : 'bg-gray-200 dark:bg-gray-700'
+              : 'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-200'
           }`}
         >
           Все
@@ -39,7 +39,7 @@ export const SearchBar: FC<SearchBarProps> = ({
           className={`px-4 py-2 rounded-lg ${
             filter === 'growing'
               ? 'bg-green-500 text-white'
-              : 'bg-gray-200 dark:bg-gray-700'
+              : 'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-200'
           }`}
         >
           Растущие
@@ -49,7 +49,7 @@ export const SearchBar: FC<SearchBarProps> = ({
           className={`px-4 py-2 rounded-lg ${
             filter === 'falling'
               ? 'bg-red-500 text-white'
-              : 'bg-gray-200 dark:bg-gray-700'
+              : 'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-200'
           }`}
         >
           Падающие
