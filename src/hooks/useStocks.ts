@@ -1,10 +1,6 @@
 import { useQuery } from 'react-query';
 import { stockService } from '@/services/stockService';
-import {
-  STOCK_SYMBOLS,
-  UPDATE_INTERVAL,
-  ITEMS_PER_PAGE,
-} from '@/services/config';
+import { STOCK_SYMBOLS, ITEMS_PER_PAGE } from '@/services/config';
 import { Stock, StockFilter } from '@/types/stock';
 import { useState, useMemo } from 'react';
 
@@ -13,48 +9,46 @@ export const useStocks = () => {
   const [filter, setFilter] = useState<StockFilter>('all');
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { data: stocks = [], isLoading } = useQuery(
-    'stocks',
-    async () => {
-      const quotes = await Promise.all(
-        STOCK_SYMBOLS.map(async (symbol) => {
-          const quote = await stockService.getQuote(symbol);
-          return {
-            symbol,
-            quote,
-            isGrowing: quote.c > quote.o,
-          };
-        })
-      );
-      return quotes;
-    },
+  const filteredSymbols = useMemo(() => {
+    return STOCK_SYMBOLS.filter((symbol) =>
+      symbol.toLowerCase().includes(search.toLowerCase())
+    );
+  }, [search]);
+
+  const currentPageSymbols = useMemo(() => {
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    return filteredSymbols.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  }, [filteredSymbols, currentPage]);
+
+  const { data: quotesMap = new Map(), isLoading } = useQuery(
+    ['stocks', currentPageSymbols.join()],
+    () => stockService.getQuotesForPage(currentPageSymbols),
     {
-      refetchInterval: UPDATE_INTERVAL,
+      refetchInterval: 5000,
+      keepPreviousData: true,
+      retry: 2,
     }
   );
 
-  const filteredStocks = useMemo(() => {
-    return stocks
-      .filter((stock) =>
-        stock.symbol.toLowerCase().includes(search.toLowerCase())
-      )
+  const stocks = useMemo(() => {
+    return Array.from(quotesMap.entries())
+      .map(([symbol, quote]) => ({
+        symbol,
+        quote,
+        isGrowing: quote.c > quote.o,
+      }))
       .filter((stock) => {
         if (filter === 'growing') return stock.isGrowing;
         if (filter === 'falling') return !stock.isGrowing;
         return true;
       });
-  }, [stocks, search, filter]);
+  }, [quotesMap, filter]);
 
-  const paginatedStocks = useMemo(() => {
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    return filteredStocks.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-  }, [filteredStocks, currentPage]);
-
-  const totalPages = Math.ceil(filteredStocks.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(filteredSymbols.length / ITEMS_PER_PAGE);
 
   return {
-    stocks: paginatedStocks,
-    totalStocks: filteredStocks.length,
+    stocks,
+    totalStocks: filteredSymbols.length,
     isLoading,
     search,
     setSearch,
